@@ -1,0 +1,119 @@
+# Copyright 2017 The TensorFlow Agents Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Tests for the PPO algorithm usage example."""
+
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
+import functools
+import itertools
+
+import tensorflow as tf
+
+from agents import algorithms
+from agents import tools
+from agents.scripts import configs
+from agents.scripts import networks
+from agents.scripts import train
+
+
+class PPOTest(tf.test.TestCase):
+
+  def test_pendulum_no_crash(self):
+    nets = networks.feed_forward_gaussian, networks.recurrent_gaussian
+    for network in nets:
+      config = self._define_config()
+      with config.unlocked:
+        config.env = 'Pendulum-v0'
+        config.max_length = 200
+        config.steps = 500
+        config.network = network
+      for score in train.train(config, env_processes=True):
+        float(score)
+
+  def test_no_crash_cartpole(self):
+    config = self._define_config()
+    with config.unlocked:
+      config.env = 'CartPole-v1'
+      config.max_length = 200
+      config.steps = 500
+      config.normalize_ranges = False  # The env reports wrong ranges.
+      config.network = networks.feed_forward_categorical
+    for score in train.train(config, env_processes=True):
+      float(score)
+
+  def test_no_crash_observation_shape(self):
+    nets = networks.feed_forward_gaussian, networks.recurrent_gaussian
+    observ_shapes = (1,), (2, 3), (2, 3, 4)
+    for network, observ_shape in itertools.product(nets, observ_shapes):
+      config = self._define_config()
+      with config.unlocked:
+        config.env = functools.partial(
+            tools.MockEnvironment, observ_shape, action_shape=(3,),
+            min_duration=15, max_duration=15)
+        config.max_length = 20
+        config.steps = 50
+        config.network = network
+      for score in train.train(config, env_processes=False):
+        float(score)
+
+  def test_no_crash_variable_duration(self):
+    config = self._define_config()
+    with config.unlocked:
+      config.env = functools.partial(
+          tools.MockEnvironment, observ_shape=(2, 3), action_shape=(3,),
+          min_duration=5, max_duration=25)
+      config.max_length = 25
+      config.steps = 100
+      config.network = networks.recurrent_gaussian
+    for score in train.train(config, env_processes=False):
+      float(score)
+
+  def test_no_crash_chunking(self):
+    config = self._define_config()
+    with config.unlocked:
+      config.env = functools.partial(
+          tools.MockEnvironment, observ_shape=(2, 3), action_shape=(3,),
+          min_duration=5, max_duration=25)
+      config.max_length = 25
+      config.steps = 100
+      config.network = networks.recurrent_gaussian
+      config.chunk_length = 10
+      config.batch_size = 5
+    for score in train.train(config, env_processes=False):
+      float(score)
+
+  def _define_config(self):
+    # Start from the example configuration.
+    locals().update(configs.default())
+    # pylint: disable=unused-variable
+    # General
+    algorithm = algorithms.PPO
+    num_agents = 2
+    update_every = 4
+    use_gpu = False
+    # Network
+    policy_layers = 20, 10
+    value_layers = 20, 10
+    # Optimization
+    update_epochs_policy = 2
+    update_epochs_value = 2
+    # pylint: enable=unused-variable
+    return tools.AttrDict(locals())
+
+
+if __name__ == '__main__':
+  tf.test.main()
