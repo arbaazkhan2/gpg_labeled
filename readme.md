@@ -11,7 +11,7 @@ This repository contains the code for our paper  Graph Policy Gradients for Larg
 
 
 ### Installation and Usage
-  First install the formation flying environment from inside env/gym_formation. Instructions provided in the enclosed readme file.
+  First install the formation flying environment from inside gym_formation/. Instructions provided in the enclosed readme file.
   
   Install deep graph library (https://www.dgl.ai/) and compatible version of PyTorch.
 
