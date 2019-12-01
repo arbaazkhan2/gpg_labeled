@@ -60,7 +60,7 @@ def main():
 			#if episode%50==0:
 			env.render()
 			if episode==0 and count ==0:
-				pdb.set_trace()
+				#pdb.set_trace()
 				count += 1
 				#time.sleep(15)
 			#pdb.set_trace()

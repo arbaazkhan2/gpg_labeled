@@ -19,11 +19,11 @@ This repository contains the code for our paper  Graph Policy Gradients for Larg
   ```Shell
   cd rl_code
   #To train GPG from scratch
-  python3 main.py 
+  python3 main.py (See below)
   #Inference for a larger swarm (loads model from ./logs)
   python3 parameter_reload.py 
 ```
 - A simple arrowhead formation is specified in constr_formation_flying.py (inside gym_formation/gym_flock/envs/)
 To increase the number of agents simply change the parameter self.n_agents in constr_formation_flying.py, line 39.
 
-  
+- Make sure to change the number of agents to a small number if training from scratch (Ideally < 10)  
