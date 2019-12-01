@@ -18,8 +18,8 @@ This repository contains the code for our paper  Graph Policy Gradients for Larg
   # Running the code:
   ```Shell
   cd rl_code
-  #To train GPG from scratch
-  python3 main.py (See below)
+  #To train GPG from scratch. (See additional point below)
+  python3 main.py 
   #Inference for a larger swarm (loads model from ./logs)
   python3 parameter_reload.py 
 ```
