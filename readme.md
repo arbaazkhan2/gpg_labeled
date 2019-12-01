@@ -1,7 +1,7 @@
 ## Graph Policy Gradients for Large Scale Robot Control
 #### In CoRL 2019, Oral Paper [[Paper]](https://arxiv.org/pdf/1907.03822.pdf)[[Video]](https://www.youtube.com/watch?v=RefiX9UCCw8)[[Blog Post]](https://devmesh.intel.com/projects/graph-policy-gradients-for-large-scale-robot-control)[[CoRL Talk]](https://youtu.be/b7StSnt85S4?t=8604)
 
-[Arbaaz Khan](https://www.seas.upenn.edu/~arbaazk/), [Ekaterina Tolstaya](https://katetolstaya.github.io/), [Alejandro Ribeiro](https://alliance.seas.upenn.edu/~aribeiro/wiki/), [Vijay Kumar](hhttps://www.kumarrobotics.org/dr-vijay-kumar/)<br/>
+[Arbaaz Khan](https://www.seas.upenn.edu/~arbaazk/), [Ekaterina Tolstaya](https://katetolstaya.github.io/), [Alejandro Ribeiro](https://alliance.seas.upenn.edu/~aribeiro/wiki/), [Vijay Kumar](https://www.kumarrobotics.org/dr-vijay-kumar/)<br/>
 GRASP Lab, University of Pennsylvania <br/>
 
 <img src="rl_code/results/gpg.png">  
