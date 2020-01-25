@@ -31,4 +31,8 @@ register(
     entry_point='gym_flock.envs:OneAgentEnv',
     max_episode_steps=500,
 )
-
+register(
+    id='FormationFlyingInference-v3',
+    entry_point='gym_flock.envs:FormationFlyingInferenceEnv3',
+    max_episode_steps=500,
+)

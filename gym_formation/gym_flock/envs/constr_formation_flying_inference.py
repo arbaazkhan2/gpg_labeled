@@ -15,7 +15,7 @@ font = {'family': 'sans-serif',
         'size': 14}
 
 
-class FormationFlyingEnv3(gym.Env):
+class FormationFlyingInferenceEnv3(gym.Env):
 
     def __init__(self):
 
@@ -36,7 +36,7 @@ class FormationFlyingEnv3(gym.Env):
         self.nu = 2
 
         # problem parameters from file
-        self.n_agents = 3
+        self.n_agents = 51
         self.comm_radius = float(config['comm_radius'])
         self.comm_radius2 = self.comm_radius * self.comm_radius
         self.dt = float(config['system_dt'])
@@ -125,10 +125,10 @@ class FormationFlyingEnv3(gym.Env):
 
         self.placer_x = (self.n_agents/2)*2*(-1)
 
-        #r = 50
-        #t = np.linspace(-0.5*3.14, 1.5*3.14, self.n_agents)
-        #x1 = r*np.cos(t)*np.sin(t)
-        #y1 = r*np.sin(t)
+        r = 50
+        t = np.linspace(-0.5*3.14, 1.5*3.14, self.n_agents)
+        x1 = r*np.cos(t)*np.sin(t)
+        y1 = r*np.sin(t)
 
 
         ########declare goals##################################
@@ -141,14 +141,14 @@ class FormationFlyingEnv3(gym.Env):
         
         #commment this out if you dont want the agents to form a triangle.
 
-        #self.mid = self.n_agents//2 #mid point
-        #self.y_placer = 35 #first offset
-        #count = 0
+        self.mid = self.n_agents//2 #mid point
+        self.y_placer = 35 #first offset
+        count = 0
 
 
         
         for i in range(0,self.n_agents):
-            '''
+
             if count <= self.mid :             #comment this out if you dont want the agents to form a triangle.
                 self.y_placer += 2
                 self.agent_yg.append(self.y_placer+np.random.uniform(5,8))
@@ -156,8 +156,8 @@ class FormationFlyingEnv3(gym.Env):
                 self.y_placer -= 2
                 self.agent_yg.append(self.y_placer+np.random.uniform(5,8))
             count += 1
-            '''
-            self.agent_yg.append(np.random.uniform(2,3))
+
+            #self.agent_yg.append(np.random.uniform(2,3))
         #########################################################
         
 
@@ -165,6 +165,10 @@ class FormationFlyingEnv3(gym.Env):
         self.placer_x = (self.n_agents/2)*2*(-1)
 
 
+        r = 30
+        t = np.linspace(1.5*3.14, -0.5*3.14, self.n_agents)
+        x1 = r*np.cos(t)
+        y1 = r*np.sin(t)
         
 
         #pdb.set_trace()

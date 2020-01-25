@@ -29,7 +29,7 @@ import datetime
 # first load old policy
 policy = Net()
 optimizer = optim.Adam(policy.parameters(), lr=1e-3)
-env = gym.make('FormationFlying-v3')
+env = gym.make('FormationFlyingInference-v3')
 filename = './logs/2d_3agents.pt'
 policy.load_state_dict(torch.load(filename))
 
